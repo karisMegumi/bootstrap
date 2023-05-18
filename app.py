@@ -26,7 +26,5 @@ def login():
 def ead():
     return render_template("ead.html")
 
-
-
 if __name__ == '__main__':
     app.run(debug=True)

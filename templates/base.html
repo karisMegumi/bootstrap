@@ -33,17 +33,26 @@
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
                     <a class="nav-link active" aria-current="page" href="{{ url_for('index')}}">INDEX</a>
-                    <a class="nav-link" href="{{ url_for('ead')}}">SOBRE O EAD</a>
-                    <a class="nav-link" href="{{ url_for('cursos')}}">CURSOS</a>
-                    <a class="nav-link" href="{{ url_for('contato')}}">CONTATOS</a>
-                    <a class="nav-link" href="{{ url_for('login')}}">LOGIN</a>
+                    <a class="nav-link" href="{{url_for('ead')}}">SOBRE O EAD</a>
+                    <a class="nav-link" href="{{url_for('cursos')}}">CURSOS</a>
+                    <a class="nav-link" href="{{url_for('contato')}}">CONTATOS</a>
+                    <a class="nav-link" href="{{url_for('login')}}">LOGIN</a>
                 </div>
             </div>
         </div>
     </nav>
     {% endblock %}
 
+    {% block banner %}
+    <div class="col-12 mt-3">
+        <img src="{{url_for('static', filename='image/banner_index.png')}}">
     </div>
+    {% endblock %}
 
+    {% block content %}
+
+    {% endblock %}
+
+    </div>
 </body>
 </html>
