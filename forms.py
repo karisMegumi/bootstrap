@@ -12,6 +12,6 @@ class formNovoUsuario(FlaskForm):
     Email = StringField('Email', validators = [DataRequired(), Email()])
     celular = StringField('Celular', validators = [])
     cpf = StringField('CPF', validators = [])
-    senha = PasswordField('Senha', validators = [DataRequired(), Length(6,12)])
+    Senha = PasswordField('Senha', validators = [DataRequired(), Length(6,12)])
     senhaConfirmacao = PasswordField('Confirmação de Senha', validators = [DataRequired(), EqualTo('senha')])
     submit = SubmitField('Criar conta')

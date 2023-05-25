@@ -22,7 +22,7 @@ def contato():
 def cursos():
     return render_template("cursos.html")
 
-@app.route('/login')
+@app.route('/login', methods=['get','post'])
 def login():
     titulo = 'Login de acesso'
     descricao = 'Formulario de login'
