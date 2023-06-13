@@ -16,7 +16,8 @@ mydb = mysql.connector.connect(
 
 @app.route('/')
 def index():
-    return render_template("index.html")
+    title = 'Curso EAD Senac'
+    return render_template("index.html", title = title)
 
 @app.route('/base')
 def base():
@@ -28,6 +29,12 @@ def contato():
 
 @app.route('/cursos')
 def cursos():
+
+    my_cursor = mydb.cursor()
+    my_cursor.execute('select * from cursos')
+
+    cursos = my_cursor.fetchall()
+
     return render_template("cursos.html")
 
 @app.route('/login', methods=['get','post'])
@@ -39,27 +46,43 @@ def login():
     form_novo_usuario = formNovoUsuario()
 
     if form_login.validate_on_submit() and 'submitLogin' in request.form:
-        flash(f'Login realizado com sucesso: {form_login.email.data}', 'alert-success')
-        return redirect(url_for('index'))
+
+        cursor = mydb.cursor()
+
+        email = form_login.email.data
+        senha = form_login.senha.data
+        hashSenha = sha256(senha.encode())
+
+        comando = f'Select * from alunos where email = "{email}" '
+        cursor.execute(comando)
+        result = cursor.fetchall()
+    
+        if hashSenha.hexdigest() ==  result[0][5] :
+            session['nome_usuario'] = result[0][1]
+            flash(f'Login realizado com sucesso: {form_login.email.data}', 'alert-primary')
+            return redirect(url_for('index'))
+        else:
+            flash(f'Usuario ou senha incorreta para: {form_login.email.data}', 'alert-danger')
+            return redirect(url_for('login'))
     
     if form_novo_usuario.validate_on_submit() and 'submit' in request.form:
-        cursor = mysql.cursor()
+        cursor = mydb.cursor()
 
         nome = form_novo_usuario.nome.data
         telefone = form_novo_usuario.celular.data
-        Email = form_novo_usuario.Email.data
+        Email = form_novo_usuario.email.data
         cpf = form_novo_usuario.cpf.data
-        Senha = form_novo_usuario.Senha.data
+        Senha = form_novo_usuario.senha.data
         hashSenha = sha256(Senha.encode())
 
-        query = f'INSERT INTO alunos (nome, email, celular, documento, senha) VALUES ("{nome}", "{Email}", "{telefone}", "{cpf}", "{hashSenha.hexdigest()}")'
+        query = f'INSERT INTO alunos (nome, email, celular, cpf, senha) VALUES ("{nome}", "{Email}", "{telefone}", "{cpf}", "{hashSenha.hexdigest()}")'
         cursor.execute(query)
         mydb.commit()
 
         flash(f'CADASTRO REALIZADO COM SUCESSO: {form_novo_usuario.nome.data}', 'alert success')
         return redirect(url_for('index'))
 
-    return render_template("login.html", descricao = descricao, form_login = form_login, form_novo_usuario = form_novo_usuario)
+    return render_template("login.html", titulo = titulo, descricao = descricao, form_login = form_login, form_novo_usuario = form_novo_usuario)
 
 @app.route('/ead')
 def ead():

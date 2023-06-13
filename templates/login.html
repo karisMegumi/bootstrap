@@ -17,6 +17,7 @@
             <fieldset>
                 <div class="form-group mb-2">
                     {{ form_login.email.label (class="form-control-label") }}
+                    
                     {% if form_login.email.errors %}
                         {{ form_login.email (class="form-control is-invalid") }}
                         <div class="invalid-feedback">
@@ -49,8 +50,8 @@
                 </div>
 
                 <div class="form-group mb-2">
-                    {{ form_novo_usuario.Email.label (class="form-control-label") }}
-                    {{ form_novo_usuario.Email (class="form-control") }}
+                    {{ form_novo_usuario.email.label (class="form-control-label") }}
+                    {{ form_novo_usuario.email (class="form-control") }}
                 </div>
                 
                 <div class="form-group mb-2">
@@ -64,8 +65,8 @@
                 </div>
 
                 <div class="form-group mb-2">
-                    {{ form_novo_usuario.Senha.label (class="form-control-label") }}
-                    {{ form_novo_usuario.Senha (class="form-control") }}
+                    {{ form_novo_usuario.senha.label (class="form-control-label") }}
+                    {{ form_novo_usuario.senha (class="form-control") }}
                 </div>
 
                 <div class="form-group mb-2">
