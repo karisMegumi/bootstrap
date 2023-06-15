@@ -37,6 +37,10 @@
                     <a class="nav-link" href="{{url_for('cursos')}}">CURSOS</a>
                     <a class="nav-link" href="{{url_for('contato')}}">CONTATOS</a>
                     <a class="nav-link" href="{{url_for('login')}}">LOGIN</a>
+                    {% if session.get("nome_usuario") %}
+                    <a class="nav-link" href="">|</a>
+                    <a class="nav-link" href="{{ url_for('logout') }}">Usuario Logado: {{ session.get('nome_usuario') }}</a>
+                    {% endif %}
                 </div>
             </div>
         </div>
